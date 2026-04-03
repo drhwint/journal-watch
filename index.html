@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal Watch - 의학 연구 논문 데일리 트래커</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <h1 class="header-title">Journal Watch</h1>
+      <span class="header-subtitle" data-i18n="appSubtitle">의학 연구 논문 데일리 트래커</span>
+    </div>
+    <div class="header-right">
+      <span class="header-date" id="headerDate"></span>
+      <button class="btn btn-icon" id="btnRefresh" title="새로고침">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+      </button>
+      <button class="btn btn-icon" id="btnLang" title="Language">
+        <span id="langLabel">EN</span>
+      </button>
+      <button class="btn btn-icon" id="btnDarkMode" title="다크 모드">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-close" id="sidebarClose">&times;</button>
+
+      <div class="filter-section">
+        <h3 class="filter-title" data-i18n="journalGroup">저널 그룹</h3>
+        <label class="checkbox-label">
+          <input type="checkbox" name="group" value="nephrology" checked>
+          <span data-i18n="nephrology">신장학</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="group" value="cardiology" checked>
+          <span data-i18n="cardiology">심장학</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="group" value="endocrinology" checked>
+          <span data-i18n="endocrinology">내분비학</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="group" value="general" checked>
+          <span data-i18n="general">종합</span>
+        </label>
+      </div>
+
+      <div class="filter-section">
+        <h3 class="filter-title" data-i18n="period">기간</h3>
+        <select class="filter-select" id="dateRange">
+          <option value="1">1일</option>
+          <option value="3">3일</option>
+          <option value="7" selected>7일</option>
+          <option value="14">14일</option>
+          <option value="30">30일</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <h3 class="filter-title" data-i18n="journal">저널</h3>
+        <select class="filter-select" id="journalFilter">
+          <option value="" data-i18n="allJournals">전체 저널</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <h3 class="filter-title" data-i18n="sort">정렬</h3>
+        <label class="radio-label">
+          <input type="radio" name="sort" value="date" checked>
+          <span data-i18n="sortByDate">최신순</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="sort" value="relevance">
+          <span data-i18n="sortByRelevance">관련순</span>
+        </label>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Mobile sidebar toggle -->
+      <button class="btn btn-icon sidebar-toggle" id="sidebarToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="papers" data-i18n="paperList">논문 목록</button>
+        <button class="tab" data-tab="trends" data-i18n="trends">키워드 트렌드</button>
+        <button class="tab" data-tab="bookmarks" data-i18n="bookmarks">북마크</button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="검색어 입력..." data-i18n-placeholder="searchPlaceholder">
+      </div>
+
+      <!-- Status bar -->
+      <div class="status-bar" id="statusBar">
+        <span class="paper-count" id="paperCount"></span>
+        <span class="last-updated" id="lastUpdated"></span>
+      </div>
+
+      <!-- Papers tab -->
+      <div class="tab-content active" id="tabPapers">
+        <div class="paper-list" id="paperList"></div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- Trends tab -->
+      <div class="tab-content" id="tabTrends">
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3 class="chart-title" data-i18n="dailyPaperCount">일별 논문 수</h3>
+            <canvas id="chartDaily"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title" data-i18n="topicDistribution">분야별 분포</h3>
+            <canvas id="chartTopics"></canvas>
+          </div>
+          <div class="chart-card chart-card-wide">
+            <h3 class="chart-title" data-i18n="topKeywords">상위 키워드</h3>
+            <canvas id="chartKeywords"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bookmarks tab -->
+      <div class="tab-content" id="tabBookmarks">
+        <div class="bookmark-actions">
+          <button class="btn btn-sm" id="btnExportJSON" data-i18n="exportJSON">JSON 내보내기</button>
+          <button class="btn btn-sm" id="btnExportRIS" data-i18n="exportRIS">RIS 내보내기</button>
+        </div>
+        <div class="paper-list" id="bookmarkList"></div>
+      </div>
+
+      <!-- Loading overlay -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p data-i18n="loading">논문을 불러오는 중...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/i18n.js?v=4"></script>
+  <script src="js/cache.js?v=4"></script>
+  <script src="js/api-pubmed.js?v=4"></script>
+  <script src="js/papers.js?v=4"></script>
+  <script src="js/filters.js?v=4"></script>
+  <script src="js/search.js?v=4"></script>
+  <script src="js/bookmarks.js?v=4"></script>
+  <script src="js/trends.js?v=4"></script>
+  <script src="js/ui.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
+</body>
+</html>
