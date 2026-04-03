@@ -19,7 +19,8 @@ const Papers = (() => {
       abstract: abstractData.abstract || '',
       keywords: abstractData.keywords || [],
       doi,
-      url: doi ? `https://doi.org/${doi}` : `https://pubmed.ncbi.nlm.nih.gov/${summary.uid}/`,
+      url: `https://pubmed.ncbi.nlm.nih.gov/${summary.uid}/`,
+      doiUrl: doi ? `https://doi.org/${doi}` : null,
       topics: [topic],
       isPreprint: false,
       bookmarked: false

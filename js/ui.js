@@ -51,6 +51,7 @@ const UI = (() => {
           <span class="paper-meta-item">${escapeHtml(authorsDisplay)}</span>
           <span class="paper-meta-item"><strong>${escapeHtml(paper.journal)}</strong></span>
           <span class="paper-meta-item">${escapeHtml(paper.date)}</span>
+          ${paper.doiUrl ? `<span class="paper-meta-item"><a href="${escapeHtml(paper.doiUrl)}" target="_blank" rel="noopener" class="doi-link">DOI</a></span>` : ''}
         </div>
         ${abstractPreview ? `
           <div class="paper-abstract">

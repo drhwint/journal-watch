@@ -358,6 +358,17 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
   gap: 4px;
 }
 
+.doi-link {
+  font-size: 11px;
+  padding: 1px 6px;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.doi-link:hover { background: var(--accent); color: #fff; text-decoration: none; }
+
 .paper-abstract {
   font-size: 13px;
   color: var(--text-secondary);
