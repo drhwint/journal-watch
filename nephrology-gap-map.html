@@ -1,0 +1,1137 @@
+<title>신장학 연구공백 지도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F4F6F6; --surface:#FFFFFF; --surface-2:#EAEFEF; --surface-3:#DFE7E7;
+  --ink:#14201F; --ink-2:#47585A; --ink-3:#7A8B8C;
+  --rule:#DCE3E3; --rule-strong:#C3CFCF;
+  --accent:#0A6E78; --accent-soft:#E2F0F1;
+  --up:#0093A3; --down:#C05A2C; --zero:#A9B6B6;
+  --bar:#0A6E78; --bar-soft:#CBDEDF; --alarm:#96324B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1516; --surface:#131E1F; --surface-2:#1A2728; --surface-3:#22302F;
+    --ink:#E6EDEC; --ink-2:#A3B4B4; --ink-3:#758888;
+    --rule:#263536; --rule-strong:#334344;
+    --accent:#4FBCC6; --accent-soft:#12292B;
+    --up:#26A0AB; --down:#CE7440; --zero:#4A5C5C;
+    --bar:#26A0AB; --bar-soft:#22383A; --alarm:#D9758F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1516; --surface:#131E1F; --surface-2:#1A2728; --surface-3:#22302F;
+  --ink:#E6EDEC; --ink-2:#A3B4B4; --ink-3:#758888;
+  --rule:#263536; --rule-strong:#334344;
+  --accent:#4FBCC6; --accent-soft:#12292B;
+  --up:#26A0AB; --down:#CE7440; --zero:#4A5C5C;
+  --bar:#26A0AB; --bar-soft:#22383A; --alarm:#D9758F;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px; line-height:1.72; -webkit-font-smoothing:antialiased;
+  font-feature-settings:"kern";
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.prose{max-width:68ch}
+h1,h2,h3{text-wrap:balance;letter-spacing:-0.018em;line-height:1.24;margin:0}
+h1{font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:700}
+h2{font-size:clamp(1.35rem,2.6vw,1.85rem);font-weight:600}
+h3{font-size:1.05rem;font-weight:600;letter-spacing:-0.008em}
+p{margin:0 0 1.05em}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:500;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  word-break:keep-all;
+}
+.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:.82rem}
+.dim{color:var(--ink-3)}
+
+/* ---------- masthead ---------- */
+header.mast{
+  border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,var(--surface) 0%,var(--ground) 100%);
+  padding:clamp(48px,8vw,96px) 0 0;
+}
+.mast .kicker{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;margin-bottom:26px}
+.mast h1{margin-bottom:20px}
+.deck{font-size:clamp(1.02rem,1.7vw,1.18rem);color:var(--ink-2);max-width:56ch;font-weight:300;line-height:1.66}
+.statstrip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+  margin:clamp(36px,5vw,56px) 0 0;border-bottom:none;
+}
+.stat{background:var(--surface);padding:20px 22px}
+.stat .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:1.6rem;font-weight:500;letter-spacing:-0.03em;display:block;line-height:1.2}
+.stat .k{font-size:.78rem;color:var(--ink-3);margin-top:6px;display:block;line-height:1.45}
+.stat.alarm .v{color:var(--alarm)}
+
+/* ---------- sections ---------- */
+section{padding:clamp(52px,7vw,88px) 0;border-bottom:1px solid var(--rule)}
+.shead{margin-bottom:clamp(28px,4vw,42px);max-width:68ch}
+.shead .eyebrow{display:block;margin-bottom:12px}
+.shead p{color:var(--ink-2);margin-top:14px;font-weight:300}
+
+/* ---------- finding cards ---------- */
+.findings{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.finding{background:var(--surface);padding:26px 24px 28px}
+.finding .tag{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:14px;
+  letter-spacing:.09em;word-break:keep-all}
+.finding h3{margin-bottom:10px}
+.finding p{font-size:.92rem;color:var(--ink-2);margin:0;line-height:1.68}
+.finding p + p{margin-top:.8em}
+.finding b{color:var(--ink);font-weight:600}
+
+/* ---------- data tables ---------- */
+.scroller{overflow-x:auto;border:1px solid var(--rule);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px}
+caption{text-align:left;padding:16px 18px;border-bottom:1px solid var(--rule);
+  font-size:.84rem;color:var(--ink-2);background:var(--surface-2)}
+caption b{color:var(--ink);font-weight:600}
+th,td{padding:7px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:middle}
+thead th{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;word-break:keep-all;
+  background:var(--surface);position:sticky;top:0;z-index:2;
+  border-bottom:1px solid var(--rule-strong);padding-top:12px;padding-bottom:12px}
+tbody th{font-weight:400;font-size:.88rem;white-space:nowrap;color:var(--ink)}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right}
+.cid{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--ink-3);
+  margin-right:9px;letter-spacing:.04em}
+
+/* diverging bars */
+.dvcell{width:44%;min-width:200px;padding-left:4px;padding-right:4px}
+.dvtrack{position:relative;display:flex;height:15px;align-items:center}
+.dvhalf{flex:1 1 50%;display:flex;height:100%}
+.dvleft{justify-content:flex-end}
+.dvright{justify-content:flex-start}
+.dvzero{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--rule-strong)}
+.dvbar{display:block;height:9px;align-self:center}
+.dv-up{background:var(--up);border-radius:0 3px 3px 0}
+.dv-down{background:var(--down);border-radius:3px 0 0 3px}
+.g-up{color:var(--up)}
+.g-down{color:var(--down)}
+
+/* magnitude bars */
+.barcell{width:38%;min-width:170px}
+.track{position:relative;height:15px;display:flex;align-items:center;background:linear-gradient(var(--surface-3),var(--surface-3)) left center/100% 1px no-repeat}
+.bar{display:block;height:9px;background:var(--bar);border-radius:0 3px 3px 0}
+.bar.is-zero{background:var(--alarm);width:3px!important;border-radius:2px}
+.mean{position:absolute;top:-2px;bottom:-2px;width:1px;background:var(--ink-3);opacity:.55}
+tr.is-below th{color:var(--ink-2)}
+.tg-leak{background:var(--down);border-radius:0 3px 3px 0}
+.tg-mid{background:var(--zero);border-radius:0 3px 3px 0}
+.tg-void{background:var(--accent);border-radius:0 3px 3px 0}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:14px;font-size:.78rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:14px;height:9px;border-radius:2px;display:inline-block}
+.sw.line{width:1px;height:13px;border-radius:0}
+
+/* ---------- typology ---------- */
+.types{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.type{background:var(--surface);padding:24px 22px}
+.type .lab{font-family:"IBM Plex Mono",monospace;font-size:.66rem;
+  text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:12px;
+  letter-spacing:.09em;word-break:keep-all}
+.type h3{margin-bottom:8px}
+.type > p{font-size:.88rem;color:var(--ink-2);margin:0 0 14px}
+.type ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}
+.type li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;
+  border-bottom:1px solid var(--rule);font-size:.85rem}
+.type li:last-child{border-bottom:none}
+.type li em{font-style:normal;color:var(--ink-2)}
+.type li b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-weight:500;font-size:.8rem;white-space:nowrap}
+
+/* ---------- priority list ---------- */
+.prio{border:1px solid var(--rule);background:var(--surface)}
+.prow{display:grid;grid-template-columns:52px 1fr;gap:0 18px;padding:22px 22px;
+  border-bottom:1px solid var(--rule)}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:var(--surface-2)}
+.rank{font-family:"IBM Plex Mono",monospace;font-size:1.5rem;font-weight:500;
+  color:var(--accent);line-height:1.1;font-variant-numeric:tabular-nums}
+.prow h3{margin-bottom:8px}
+.ptags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.ptag{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;
+  padding:3px 8px;border:1px solid var(--rule-strong);color:var(--ink-2);border-radius:2px}
+.pevi{font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--ink-2);
+  margin:0 0 10px;line-height:1.6;font-variant-numeric:tabular-nums}
+.pq{font-size:.92rem;color:var(--ink-2);margin:0;line-height:1.68}
+.pq b{color:var(--ink);font-weight:600}
+
+/* ---------- quotes ---------- */
+.quotes{border:1px solid var(--rule);background:var(--surface)}
+.q{padding:20px 22px;border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:minmax(140px,180px) 1fr;gap:6px 22px}
+.q:last-child{border-bottom:none}
+.q:hover{background:var(--surface-2)}
+.q .area{font-size:.84rem;font-weight:500;color:var(--ink)}
+.q .txt{font-size:.92rem;color:var(--ink-2);line-height:1.66;margin:0}
+.q .src{grid-column:2;font-family:"IBM Plex Mono",monospace;font-size:.7rem;margin-top:8px}
+.q .src a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--rule-strong)}
+.q .src a:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ---------- notes ---------- */
+.notes{columns:2;column-gap:44px;font-size:.86rem;color:var(--ink-2)}
+.notes li{break-inside:avoid;margin-bottom:12px;line-height:1.62}
+footer{padding:44px 0 64px;color:var(--ink-3);font-size:.8rem}
+footer p{margin:0 0 .5em}
+
+@media (max-width:820px){
+  .notes{columns:1}
+  .q{grid-template-columns:1fr}
+  .q .src{grid-column:1}
+  .prow{grid-template-columns:38px 1fr;gap:0 14px;padding:20px 18px}
+  .rank{font-size:1.15rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="kicker">
+      <span class="eyebrow">PubMed · 주요 신장학 저널 16종</span>
+      <span class="eyebrow">2021.01 – 2026.08</span>
+      <span class="eyebrow">22,179편</span>
+    </div>
+    <h1>신장학 연구공백 지도</h1>
+    <p class="deck">5년간의 출판 분포, 저자들이 직접 지목한 미해결 질문, 연구 디자인의 근거 수준, 그리고 임상시험 등록 대비 출판 격차 — 네 개의 축을 교차해 신장학에서 지금 비어 있는 자리를 찾았습니다.</p>
+    <div class="statstrip">
+      <div class="stat"><span class="v">22,179</span><span class="k">분석 논문 (16종 저널)</span></div>
+      <div class="stat"><span class="v">30</span><span class="k">주제 카테고리</span></div>
+      <div class="stat alarm"><span class="v">2.06%</span><span class="k">전체 RCT 비중 (Tier A)</span></div>
+      <div class="stat alarm"><span class="v">0.76×</span><span class="k">혈액투석 연구 성장률</span></div>
+      <div class="stat alarm"><span class="v">2</span><span class="k">RCT 0편인 카테고리</span></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">핵심 발견</span>
+      <h2>세 가지 신호</h2>
+    </div>
+    <div class="findings">
+      <article class="finding">
+        <span class="tag">무게중심 이동</span>
+        <h3>투석에서 약물·유전·면역으로</h3>
+        <p>혈액투석·혈관접근 논문은 5년간 <b>1,672편에서 1,054편으로</b> 줄어 연환산 <b>0.76배</b>가 되었습니다. 같은 기간 SGLT2i/MRA 계열은 2.37배, IgA 신병증은 1.88배로 늘었습니다.</p>
+        <p>전 세계 투석 인구는 줄지 않았습니다. 이 불일치가 이 분석에서 가장 큰 단일 공백입니다.</p>
+      </article>
+      <article class="finding">
+        <span class="tag">근거 수준</span>
+        <h3>논문은 많고 무작위 근거는 얇다</h3>
+        <p>Tier A 8종 전체에서 RCT는 <b>2.06%</b>에 불과합니다. 논문량 상위 카테고리일수록 RCT 비중이 평균 이하로, 신장이식은 논문 5위 규모임에도 <b>1.44%</b>에 그칩니다.</p>
+        <p>임신·생식건강과 onconephrology는 <b>5년간 RCT가 단 한 편도 없습니다.</b></p>
+      </article>
+      <article class="finding">
+        <span class="tag">전환 격차</span>
+        <h3>자기 환자를 다른 분야에 내주는 중</h3>
+        <p>신결석은 등록 시험 316건 대비 신장학 저널 논문이 451편(시험/논문 <b>0.70</b>), 루푸스신염은 <b>0.32</b>입니다. 그런데 신장학 저널 내 RCT는 각각 5편, 11편뿐입니다.</p>
+        <p>시험은 활발히 돌아가지만 결과는 비뇨기과·류마티스·상위 종합지로 나갑니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">축 1 — 논문량 분포</span>
+      <h2>어떤 주제가 자라고 어떤 주제가 마르는가</h2>
+      <p>가로축은 P1(2021–22) 대비 P3(2025–26.8)의 연환산 성장률을 log₂ 척도로 그린 것입니다. 중앙선이 1.00×이며, 좌우로 같은 길이는 같은 배율을 뜻합니다.</p>
+    </div>
+    <div class="scroller">
+      <table>
+        <caption><b>30개 카테고리의 5년 성장·축소</b> — 중앙선 왼쪽은 축소, 오른쪽은 성장. 카테고리는 중복 태깅을 허용하므로 합계는 코퍼스 총량을 초과합니다.</caption>
+        <thead><tr><th scope="col">카테고리</th><th scope="col" class="num">5년 논문</th><th scope="col">축소 ← 1.00× → 성장</th><th scope="col" class="num">성장률</th></tr></thead>
+        <tbody>
+<tr>
+<th scope="row"><span class="cid">C23</span>SGLT2i/MRA/신약</th>
+<td class="num">964</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:92.11%"></span></div></div></td>
+<td class="num g-up">2.37×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C27</span>AI·디지털헬스</th>
+<td class="num">680</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:76.45%"></span></div></div></td>
+<td class="num g-up">2.04×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C30</span>인력·교육·보건정책</th>
+<td class="num">430</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:67.63%"></span></div></div></td>
+<td class="num g-up">1.88×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C08</span>IgA 신병증</th>
+<td class="num">906</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:67.53%"></span></div></div></td>
+<td class="num g-up">1.88×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C13</span>보체 / C3G / TMA</th>
+<td class="num">887</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:52.77%"></span></div></div></td>
+<td class="num g-up">1.64×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C14</span>유전성·낭성 신질환</th>
+<td class="num">1,498</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:49.30%"></span></div></div></td>
+<td class="num g-up">1.59×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C06</span>임신·생식건강</th>
+<td class="num">394</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:41.50%"></span></div></div></td>
+<td class="num g-up">1.47×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C05</span>노화·프레일티·인지</th>
+<td class="num">923</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:38.72%"></span></div></div></td>
+<td class="num g-up">1.44×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C24</span>Onconephrology</th>
+<td class="num">428</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:37.62%"></span></div></div></td>
+<td class="num g-up">1.42×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C22</span>영양·비만·GLP-1</th>
+<td class="num">1,187</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:37.19%"></span></div></div></td>
+<td class="num g-up">1.42×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C11</span>루푸스신염</th>
+<td class="num">439</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:36.70%"></span></div></div></td>
+<td class="num g-up">1.41×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C28</span>오믹스·바이오마커</th>
+<td class="num">2,008</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:34.35%"></span></div></div></td>
+<td class="num g-up">1.38×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C18</span>완화·보존치료·PRO·형평성</th>
+<td class="num">1,666</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:32.61%"></span></div></div></td>
+<td class="num g-up">1.36×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C29</span>기초기전 (섬유화·podocyte)</th>
+<td class="num">1,887</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:30.04%"></span></div></div></td>
+<td class="num g-up">1.32×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C09</span>막성신병증</th>
+<td class="num">602</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:28.08%"></span></div></div></td>
+<td class="num g-up">1.30×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C10</span>FSGS/MCD/신증후군</th>
+<td class="num">1,153</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:26.86%"></span></div></div></td>
+<td class="num g-up">1.29×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C03</span>당뇨병성 신질환</th>
+<td class="num">2,481</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:21.96%"></span></div></div></td>
+<td class="num g-up">1.23×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C02</span>CKD 역학·진행</th>
+<td class="num">10,454</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:21.57%"></span></div></div></td>
+<td class="num g-up">1.22×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C04</span>심신증후군·고혈압</th>
+<td class="num">4,329</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:20.92%"></span></div></div></td>
+<td class="num g-up">1.22×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C25</span>신독성·약물용량</th>
+<td class="num">406</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:18.71%"></span></div></div></td>
+<td class="num g-up">1.19×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C16</span>복막투석·재택투석</th>
+<td class="num">1,239</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:17.95%"></span></div></div></td>
+<td class="num g-up">1.18×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C07</span>신결석</th>
+<td class="num">451</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:15.71%"></span></div></div></td>
+<td class="num g-up">1.16×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C12</span>ANCA 혈관염·anti-GBM</th>
+<td class="num">572</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:11.73%"></span></div></div></td>
+<td class="num g-up">1.12×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C19</span>CKD-MBD (미네랄·골)</th>
+<td class="num">913</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"></div><div class="dvhalf dvright"><span class="dvbar dv-up" style="width:2.53%"></span></div></div></td>
+<td class="num g-up">1.02×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C01</span>AKI·중환자 신장학</th>
+<td class="num">2,766</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"><span class="dvbar dv-down" style="width:3.52%"></span></div><div class="dvhalf dvright"></div></div></td>
+<td class="num g-down">0.97×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C21</span>전해질·산염기</th>
+<td class="num">888</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"><span class="dvbar dv-down" style="width:6.66%"></span></div><div class="dvhalf dvright"></div></div></td>
+<td class="num g-down">0.94×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C20</span>빈혈·철</th>
+<td class="num">604</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"><span class="dvbar dv-down" style="width:12.32%"></span></div><div class="dvhalf dvright"></div></div></td>
+<td class="num g-down">0.89×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C17</span>신장이식</th>
+<td class="num">2,628</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"><span class="dvbar dv-down" style="width:13.37%"></span></div><div class="dvhalf dvright"></div></div></td>
+<td class="num g-down">0.88×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C15</span>혈액투석·혈관접근</th>
+<td class="num">4,012</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"><span class="dvbar dv-down" style="width:29.83%"></span></div><div class="dvhalf dvright"></div></div></td>
+<td class="num g-down">0.76×</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C26</span>감염·백신 (COVID 포함)</th>
+<td class="num">1,596</td>
+<td class="dvcell"><div class="dvtrack"><span class="dvzero"></span><div class="dvhalf dvleft"><span class="dvbar dv-down" style="width:100.00%"></span></div><div class="dvhalf dvright"></div></div></td>
+<td class="num g-down">0.28×</td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--up)"></i>성장 (≥1.00×)</span>
+      <span><i class="sw" style="background:var(--down)"></i>축소 (&lt;1.00×)</span>
+      <span><i class="sw line" style="background:var(--rule-strong)"></i>1.00× 기준선</span>
+      <span class="dim">P3는 1.67년이므로 연환산 보정</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">축 2 — 연구 디자인</span>
+      <h2>무작위 근거는 신약이 있는 곳에만 있다</h2>
+      <p>Tier A 8종에서 <span class="mono">Randomized Controlled Trial</span> 출판유형으로 색인된 논문의 비중입니다. 전체 평균은 2.06%(301편/14,600편)이며, 막대 위 세로선이 그 평균 위치입니다.</p>
+    </div>
+    <div class="scroller">
+      <table>
+        <caption><b>카테고리별 RCT 비중</b> — 낮은 순. 상위 5개 중 4개(SGLT2i, 빈혈/HIF-PHI, 전해질/칼륨결합제, 당뇨병성 신질환)는 제약 파이프라인이 활발한 영역입니다.</caption>
+        <thead><tr><th scope="col">카테고리</th><th scope="col" class="num">RCT</th><th scope="col" class="num">논문</th><th scope="col">RCT 비중 (0 – 8%)</th><th scope="col" class="num">%</th></tr></thead>
+        <tbody>
+<tr class="is-below">
+<th scope="row"><span class="cid">C24</span>Onconephrology</th>
+<td class="num">0</td>
+<td class="num dim">258</td>
+<td class="barcell"><div class="track"><span class="bar is-zero" style="width:0.60%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">0.00%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C06</span>임신·생식건강</th>
+<td class="num">0</td>
+<td class="num dim">210</td>
+<td class="barcell"><div class="track"><span class="bar is-zero" style="width:0.60%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">0.00%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C29</span>기초기전 (섬유화·podocyte)</th>
+<td class="num">10</td>
+<td class="num dim">1,244</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:10.05%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">0.80%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C12</span>ANCA 혈관염·anti-GBM</th>
+<td class="num">3</td>
+<td class="num dim">368</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:10.19%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">0.82%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C09</span>막성신병증</th>
+<td class="num">4</td>
+<td class="num dim">400</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:12.50%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.00%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C26</span>감염·백신 (COVID 포함)</th>
+<td class="num">10</td>
+<td class="num dim">943</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:13.26%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.06%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C30</span>인력·교육·보건정책</th>
+<td class="num">3</td>
+<td class="num dim">271</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:13.84%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.11%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C27</span>AI·디지털헬스</th>
+<td class="num">4</td>
+<td class="num dim">360</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:13.89%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.11%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C13</span>보체 / C3G / TMA</th>
+<td class="num">7</td>
+<td class="num dim">594</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:14.73%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.18%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C17</span>신장이식</th>
+<td class="num">23</td>
+<td class="num dim">1,593</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:18.05%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.44%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C22</span>영양·비만·GLP-1</th>
+<td class="num">11</td>
+<td class="num dim">685</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:20.07%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.61%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C14</span>유전성·낭성 신질환</th>
+<td class="num">16</td>
+<td class="num dim">962</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:20.79%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.66%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C01</span>AKI·중환자 신장학</th>
+<td class="num">25</td>
+<td class="num dim">1,433</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:21.81%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.74%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C16</span>복막투석·재택투석</th>
+<td class="num">11</td>
+<td class="num dim">627</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:21.93%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.75%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C07</span>신결석</th>
+<td class="num">5</td>
+<td class="num dim">270</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:23.15%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.85%</td>
+</tr>
+<tr class="is-below">
+<th scope="row"><span class="cid">C28</span>오믹스·바이오마커</th>
+<td class="num">26</td>
+<td class="num dim">1,315</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:24.71%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">1.98%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C10</span>FSGS/MCD/신증후군</th>
+<td class="num">16</td>
+<td class="num dim">744</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:26.88%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">2.15%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C08</span>IgA 신병증</th>
+<td class="num">12</td>
+<td class="num dim">558</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:26.88%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">2.15%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C05</span>노화·프레일티·인지</th>
+<td class="num">14</td>
+<td class="num dim">497</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:35.21%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">2.82%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C18</span>완화·보존치료·PRO·형평성</th>
+<td class="num">31</td>
+<td class="num dim">922</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:42.03%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">3.36%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C02</span>CKD 역학·진행</th>
+<td class="num">196</td>
+<td class="num dim">5,809</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:42.18%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">3.37%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C15</span>혈액투석·혈관접근</th>
+<td class="num">72</td>
+<td class="num dim">2,124</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:42.37%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">3.39%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C11</span>루푸스신염</th>
+<td class="num">11</td>
+<td class="num dim">282</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:48.76%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">3.90%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C19</span>CKD-MBD (미네랄·골)</th>
+<td class="num">21</td>
+<td class="num dim">533</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:49.25%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">3.94%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C25</span>신독성·약물용량</th>
+<td class="num">11</td>
+<td class="num dim">256</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:53.71%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">4.30%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C04</span>심신증후군·고혈압</th>
+<td class="num">114</td>
+<td class="num dim">2,587</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:55.08%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">4.41%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C03</span>당뇨병성 신질환</th>
+<td class="num">71</td>
+<td class="num dim">1,476</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:60.13%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">4.81%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C21</span>전해질·산염기</th>
+<td class="num">31</td>
+<td class="num dim">509</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:76.13%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">6.09%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C20</span>빈혈·철</th>
+<td class="num">22</td>
+<td class="num dim">344</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:79.94%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">6.40%</td>
+</tr>
+<tr class="">
+<th scope="row"><span class="cid">C23</span>SGLT2i/MRA/신약</th>
+<td class="num">50</td>
+<td class="num dim">642</td>
+<td class="barcell"><div class="track"><span class="bar" style="width:97.35%"></span><span class="mean" style="left:25.75%"></span></div></td>
+<td class="num">7.79%</td>
+</tr>        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--bar)"></i>RCT 비중</span>
+      <span><i class="sw" style="background:var(--alarm)"></i>RCT 0편</span>
+      <span><i class="sw line" style="background:var(--ink-3)"></i>전체 평균 2.06%</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">축 3 — 등록 대비 출판</span>
+      <h2>두 종류의 불일치</h2>
+      <p>ClinicalTrials.gov에 2021년 이후 개시된 중재연구 수를, 같은 주제의 신장학 저널 논문 수로 나눈 값입니다. 위쪽은 시험이 도는데 신장학이 결과를 담지 못하는 영역, 아래쪽은 논문은 많은데 개입 시험 자체가 없는 영역입니다.</p>
+    </div>
+    <div class="scroller">
+      <table>
+        <caption><b>시험/논문 비율</b> — 분모가 신장학 저널 16종이므로 NEJM·Lancet 등 상위 종합지에 실린 대형 신장 RCT는 반영되지 않습니다.</caption>
+        <thead><tr><th scope="col">카테고리</th><th scope="col" class="num">논문</th><th scope="col" class="num">등록 시험</th><th scope="col">시험/논문 (0 – 0.72)</th><th scope="col" class="num">비율</th></tr></thead>
+        <tbody>
+<tr>
+<th scope="row"><span class="cid">C07</span>신결석</th>
+<td class="num dim">451</td>
+<td class="num">316</td>
+<td class="barcell"><div class="track"><span class="bar tg-leak" style="width:97.31%"></span></div></td>
+<td class="num">0.701</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C11</span>루푸스신염</th>
+<td class="num dim">439</td>
+<td class="num">141</td>
+<td class="barcell"><div class="track"><span class="bar tg-leak" style="width:44.61%"></span></div></td>
+<td class="num">0.321</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C15</span>혈액투석·혈관접근</th>
+<td class="num dim">4,012</td>
+<td class="num">773</td>
+<td class="barcell"><div class="track"><span class="bar tg-leak" style="width:26.76%"></span></div></td>
+<td class="num">0.193</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C12</span>ANCA 혈관염·anti-GBM</th>
+<td class="num dim">572</td>
+<td class="num">96</td>
+<td class="barcell"><div class="track"><span class="bar tg-leak" style="width:23.31%"></span></div></td>
+<td class="num">0.168</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C17</span>신장이식</th>
+<td class="num dim">2,628</td>
+<td class="num">440</td>
+<td class="barcell"><div class="track"><span class="bar tg-leak" style="width:23.25%"></span></div></td>
+<td class="num">0.167</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C01</span>AKI·중환자 신장학</th>
+<td class="num dim">2,766</td>
+<td class="num">381</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:19.13%"></span></div></td>
+<td class="num">0.138</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C08</span>IgA 신병증</th>
+<td class="num dim">906</td>
+<td class="num">124</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:19.01%"></span></div></td>
+<td class="num">0.137</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C09</span>막성신병증</th>
+<td class="num dim">602</td>
+<td class="num">64</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:14.77%"></span></div></td>
+<td class="num">0.106</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C23</span>SGLT2i/MRA/신약</th>
+<td class="num dim">964</td>
+<td class="num">99</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:14.26%"></span></div></td>
+<td class="num">0.103</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C02</span>CKD 역학·진행</th>
+<td class="num dim">10,454</td>
+<td class="num">922</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:12.25%"></span></div></td>
+<td class="num">0.088</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C16</span>복막투석·재택투석</th>
+<td class="num dim">1,239</td>
+<td class="num">95</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:10.65%"></span></div></td>
+<td class="num">0.077</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C10</span>FSGS/MCD/신증후군</th>
+<td class="num dim">1,153</td>
+<td class="num">87</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:10.48%"></span></div></td>
+<td class="num">0.075</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C14</span>유전성·낭성 신질환</th>
+<td class="num dim">1,498</td>
+<td class="num">101</td>
+<td class="barcell"><div class="track"><span class="bar tg-mid" style="width:9.36%"></span></div></td>
+<td class="num">0.067</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C20</span>빈혈·철</th>
+<td class="num dim">604</td>
+<td class="num">36</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:8.28%"></span></div></td>
+<td class="num">0.060</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C21</span>전해질·산염기</th>
+<td class="num dim">888</td>
+<td class="num">50</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:7.82%"></span></div></td>
+<td class="num">0.056</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C27</span>AI·디지털헬스</th>
+<td class="num dim">680</td>
+<td class="num">38</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:7.76%"></span></div></td>
+<td class="num">0.056</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C03</span>당뇨병성 신질환</th>
+<td class="num dim">2,481</td>
+<td class="num">138</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:7.73%"></span></div></td>
+<td class="num">0.056</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C19</span>CKD-MBD (미네랄·골)</th>
+<td class="num dim">913</td>
+<td class="num">35</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:5.32%"></span></div></td>
+<td class="num">0.038</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C24</span>Onconephrology</th>
+<td class="num dim">428</td>
+<td class="num">16</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:5.19%"></span></div></td>
+<td class="num">0.037</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C18</span>완화·보존치료·PRO·형평성</th>
+<td class="num dim">1,666</td>
+<td class="num">54</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:4.50%"></span></div></td>
+<td class="num">0.032</td>
+</tr>
+<tr>
+<th scope="row"><span class="cid">C13</span>보체 / C3G / TMA</th>
+<td class="num dim">887</td>
+<td class="num">24</td>
+<td class="barcell"><div class="track"><span class="bar tg-void" style="width:3.76%"></span></div></td>
+<td class="num">0.027</td>
+</tr>        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--down)"></i>출판 유출형 (≥0.15) — 시험 결과가 타 분야로</span>
+      <span><i class="sw" style="background:var(--zero)"></i>중간</span>
+      <span><i class="sw" style="background:var(--accent)"></i>근거 생성 부재형 (≤0.06)</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">축 4 — 저자 서술</span>
+      <h2>저자들이 직접 지목한 공백</h2>
+      <p>Tier A 8종에서 “remains unknown / evidence is lacking / knowledge gap / unmet need” 등의 표현을 포함한 논문은 5년간 456편입니다. 그중 리뷰·사설이 명시적으로 연구 어젠다를 제시한 사례입니다. 반복되는 패턴은 넷입니다 — <b>특정 인구집단의 체계적 배제</b>, <b>관찰연구의 편향 한계</b>, <b>기전 미규명으로 인한 표적치료 부재</b>, <b>환자보고결과·실제임상 데이터 부족</b>.</p>
+    </div>
+    <div class="quotes">
+      <div class="q">
+        <span class="area">소아 CKD</span>
+        <p class="txt">규제 면제로 소아는 성인 SGLT2i 시험에서 배제되었고, 그 결과 소아 연구가 결여되어 있다.</p>
+        <span class="src"><a href="https://doi.org/10.1016/j.kint.2025.10.003">Kidney Int · 10.1016/j.kint.2025.10.003</a></span>
+      </div>
+      <div class="q">
+        <span class="area">마른·비당뇨 CKD</span>
+        <p class="txt">SGLT2i 시험은 과체중·비만의 진행성 CKD 위주로 수행되었다. BMI 25 미만 비당뇨 환자에서의 효과는 불명확하며 별도 시험이 필요하다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ndt/gfaf051">NDT · 10.1093/ndt/gfaf051</a></span>
+      </div>
+      <div class="q">
+        <span class="area">ADPKD</span>
+        <p class="txt">SGLT2 억제에 대한 근거 공백을 메워야 한다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ndt/gfaf061">NDT · 10.1093/ndt/gfaf061</a></span>
+      </div>
+      <div class="q">
+        <span class="area">임신 + CKD</span>
+        <p class="txt">CKD 임신에서 철결핍성 빈혈이 불량한 결과에 얼마나 기여하는지 알려져 있지 않다. 유병률·병태생리·치료 모두 알려진 바가 적다.</p>
+        <span class="src"><a href="https://doi.org/10.1016/j.ekir.2024.01.015">Kidney Int Rep · 10.1016/j.ekir.2024.01.015</a></span>
+      </div>
+      <div class="q">
+        <span class="area">임신성 고혈압</span>
+        <p class="txt">자간전증 이후 CKD 위험 증가가 기존 CKD가 임신으로 드러난 것인지, 자간전증이 인과적 요인인지 여전히 불명확하다.</p>
+        <span class="src"><a href="https://doi.org/10.1038/s41581-025-00977-8">Nat Rev Nephrol · 10.1038/s41581-025-00977-8</a></span>
+      </div>
+      <div class="q">
+        <span class="area">항암제 신독성</span>
+        <p class="txt">약제별 신독성의 역학·기전·위험인자·예방을 다루며, 지식 공백을 겨냥한 연구 어젠다를 제시한다. (ADQI 34차 합의)</p>
+        <span class="src"><a href="https://doi.org/10.1016/j.kint.2026.01.037">Kidney Int · 10.1016/j.kint.2026.01.037</a> · <a href="https://doi.org/10.1038/s41581-025-01031-3">Nat Rev Nephrol · 10.1038/s41581-025-01031-3</a></span>
+      </div>
+      <div class="q">
+        <span class="area">패혈증 AKI</span>
+        <p class="txt">면역·혈관·실질 반응의 복합 상호작용 탓에 병태생리가 여전히 완전히 이해되지 않았다. 이 지식 공백을 메우는 것이 시급히 필요한 표적치료 개발의 전제다.</p>
+        <span class="src"><a href="https://doi.org/10.1038/s41581-026-01107-8">Nat Rev Nephrol · 10.1038/s41581-026-01107-8</a></span>
+      </div>
+      <div class="q">
+        <span class="area">혈액투석 (HDF)</span>
+        <p class="txt">우선순위는 실제임상 도입 연구, 환자보고결과 중심 설계, HDF가 왜 HD보다 우월한지에 대한 기전 연구, 그리고 개인맞춤 HDF 처방이다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ckj/sfag115">Clin Kidney J · 10.1093/ckj/sfag115</a></span>
+      </div>
+      <div class="q">
+        <span class="area">고령 신부전 의사결정</span>
+        <p class="txt">연구가 대부분 후향적·관찰적이며 교란 보정이나 선택·적응증 편향을 다루지 않아, 이 데이터로 치료 결정을 이끌기 어렵다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ndt/gfad211">NDT · 10.1093/ndt/gfad211</a></span>
+      </div>
+      <div class="q">
+        <span class="area">이식 + GLP-1</span>
+        <p class="txt">이식 수신자 데이터가 제한적이다. 이식편 생존·심혈관·신장 결과·삶의 질·비용효과를 우선하는 연구 어젠다가 필요하다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ndt/gfaf199">NDT · 10.1093/ndt/gfaf199</a></span>
+      </div>
+      <div class="q">
+        <span class="area">anti-GBM 질환</span>
+        <p class="txt">비정형·혈청음성 사례의 최적 관리가 불명확하다. 경구 대 정맥 cyclophosphamide, rituximab의 역할이 아직 정해지지 않았다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ndt/gfaf190">NDT · 10.1093/ndt/gfaf190</a></span>
+      </div>
+      <div class="q">
+        <span class="area">AKI 후 추적</span>
+        <p class="txt">1단계·3일 미만의 경미한 AKI에서도 CKD 발생 위험이 유의하게 높다. 신기능 저하를 조기에 인지할 맞춤형 추적 전략이 필요하다.</p>
+        <span class="src"><a href="https://doi.org/10.1093/ndt/gfaf093">NDT · 10.1093/ndt/gfaf093</a></span>
+      </div>
+      <div class="q">
+        <span class="area">환경·기후</span>
+        <p class="txt">대기 스트레스와 신장 건강을 잇는 기전 규명과 고위험군 식별이 연구 우선순위를 정하고 선제적 대응을 뒷받침할 수 있다.</p>
+        <span class="src"><a href="https://doi.org/10.1038/s41581-026-01073-1">Nat Rev Nephrol · 10.1038/s41581-026-01073-1</a></span>
+      </div>
+      <div class="q">
+        <span class="area">루푸스신염</span>
+        <p class="txt">면역치료 선택지가 계속 풍부해지고 있음에도 중요한 미충족 수요가 남아 있다.</p>
+        <span class="src"><a href="https://doi.org/10.2215/CJN.0000000858">CJASN · 10.2215/CJN.0000000858</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">종합</span>
+      <h2>연구공백의 다섯 가지 유형</h2>
+      <p>네 축의 결과를 교차하면 신장학의 공백은 서로 성격이 다른 다섯 종류로 나뉩니다. 순서가 아니라 유형입니다 — 각각 필요한 처방이 다릅니다.</p>
+    </div>
+    <div class="types">
+      <article class="type">
+        <span class="lab">유형 · 절대량</span>
+        <h3>Volume gap</h3>
+        <p>임상 부담 대비 논문 자체가 부족한 영역.</p>
+        <ul>
+          <li><em>임신·생식건강</em><b>1.67%</b></li>
+          <li><em>신독성·약물용량</em><b>1.73%</b></li>
+          <li><em>Onconephrology</em><b>1.82%</b></li>
+          <li><em>인력·교육·정책</em><b>1.83%</b></li>
+          <li><em>노화·프레일티</em><b>3.92%</b></li>
+        </ul>
+      </article>
+      <article class="type">
+        <span class="lab">유형 · 근거수준</span>
+        <h3>Evidence-level gap</h3>
+        <p>논문은 많지만 RCT 비중이 평균(2.06%) 이하인 영역.</p>
+        <ul>
+          <li><em>임신·생식건강</em><b>0.00%</b></li>
+          <li><em>Onconephrology</em><b>0.00%</b></li>
+          <li><em>ANCA 혈관염</em><b>0.82%</b></li>
+          <li><em>막성신병증</em><b>1.00%</b></li>
+          <li><em>신장이식</em><b>1.44%</b></li>
+        </ul>
+      </article>
+      <article class="type">
+        <span class="lab">유형 · 동력</span>
+        <h3>Momentum gap</h3>
+        <p>임상 부담은 유지되는데 연구 관심이 빠져나가는 영역.</p>
+        <ul>
+          <li><em>혈액투석·혈관접근</em><b>0.76×</b></li>
+          <li><em>신장이식</em><b>0.88×</b></li>
+          <li><em>빈혈·철</em><b>0.89×</b></li>
+          <li><em>전해질·산염기</em><b>0.94×</b></li>
+          <li><em>AKI</em><b>0.97×</b></li>
+        </ul>
+      </article>
+      <article class="type">
+        <span class="lab">유형 · 전환</span>
+        <h3>Translation gap</h3>
+        <p>시험 등록과 신장학 저널 출판 사이의 불일치. 두 방향 모두 문제입니다.</p>
+        <ul>
+          <li><em>신결석 — 유출</em><b>0.70</b></li>
+          <li><em>루푸스신염 — 유출</em><b>0.32</b></li>
+          <li><em>보체/TMA — 부재</em><b>0.027</b></li>
+          <li><em>완화·PRO — 부재</em><b>0.032</b></li>
+          <li><em>Onconephrology — 부재</em><b>0.037</b></li>
+        </ul>
+      </article>
+      <article class="type">
+        <span class="lab">유형 · 인구집단</span>
+        <h3>Population gap</h3>
+        <p>저자들이 반복적으로 지목한, 시험에서 체계적으로 배제되는 집단.</p>
+        <ul>
+          <li><em>소아·청소년</em><b>규제 면제</b></li>
+          <li><em>임신부</em><b>RCT 0편</b></li>
+          <li><em>마른 비당뇨 CKD</em><b>BMI&lt;25</b></li>
+          <li><em>이식 수신자</em><b>데이터 제한</b></li>
+          <li><em>저·중소득국</em><b>1.5% 언급</b></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">우선순위</span>
+      <h2>네 축 모두에서 신호가 잡히는 열 곳</h2>
+      <p>아래는 실제 순위입니다 — 정량 신호가 여러 축에서 중첩될수록 위에 놓았습니다.</p>
+    </div>
+    <div class="prio">
+
+      <div class="prow"><div class="rank">01</div><div>
+        <h3>혈액투석의 연구 동력 붕괴</h3>
+        <div class="ptags"><span class="ptag">동력</span><span class="ptag">전환</span></div>
+        <p class="pevi">1,672 → 1,054편 (0.76×) · 코퍼스 비중 17.1% (3위) · RCT 3.39% · 시험/논문 0.19</p>
+        <p class="pq">HDF의 우월성은 어떤 기전에서 오는가? <b>개인맞춤 투석 처방이 환자보고결과를 개선하는가?</b> 혈관접근 실패의 예측·예방 RCT. 코퍼스 3위 규모에서 유일하게 두 자릿수로 감소한 영역입니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">02</div><div>
+        <h3>신장이식의 무작위 근거 부재</h3>
+        <div class="ptags"><span class="ptag">근거수준</span><span class="ptag">동력</span></div>
+        <p class="pevi">논문 2,628편 (5위) · RCT 1.44% (평균의 0.70×) · 성장 0.88×</p>
+        <p class="pq">면역억제 최소화 전략의 RCT, <b>이식 수신자 대상 GLP-1·SGLT2i 시험</b>, 이종이식 면역손상 기전. 등록·코호트 기반 관찰연구가 압도적입니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">03</div><div>
+        <h3>임신·생식건강 신장학</h3>
+        <div class="ptags"><span class="ptag">절대량</span><span class="ptag">근거수준</span><span class="ptag">인구집단</span></div>
+        <p class="pevi">코퍼스 1.67% (최하위) · RCT 0편 · 저자 서술 gap 다수</p>
+        <p class="pq">CKD 임신에서 철결핍 치료 RCT, <b>자간전증 이후 CKD의 인과성 규명</b>, 면역억제제의 임신 중 안전성. 세 축에서 동시에 최하위인 유일한 카테고리입니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">04</div><div>
+        <h3>Onconephrology</h3>
+        <div class="ptags"><span class="ptag">절대량</span><span class="ptag">근거수준</span><span class="ptag">전환</span></div>
+        <p class="pevi">코퍼스 1.82% · RCT 0편 · 시험/논문 0.037</p>
+        <p class="pq">면역관문억제제 신독성의 예측 바이오마커, <b>항암제별 신독성 예방 RCT</b>. ADQI 34차 워크그룹이 이미 연구 어젠다를 문서화해 두었습니다 — 설계도는 있고 시험이 없습니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">05</div><div>
+        <h3>AI·디지털헬스의 전향적 검증 부재</h3>
+        <div class="ptags"><span class="ptag">근거수준</span><span class="ptag">전환</span></div>
+        <p class="pevi">성장 2.04× (2위) · RCT 4편 (1.11%) · 시험/논문 0.056</p>
+        <p class="pq">AI 기반 AKI 조기경보가 임상 결과를 실제로 개선하는가? 외부검증과 형평성 평가, LLM 임상적용 안전성. <b>모델 개발 논문은 쏟아지는데 전향적 검증이 거의 없는 전형적 과열 패턴</b>입니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">06</div><div>
+        <h3>완화·보존치료와 환자보고결과</h3>
+        <div class="ptags"><span class="ptag">전환</span></div>
+        <p class="pevi">논문 1,666편 (7.1%) · 시험/논문 0.032 — 전 카테고리 최저</p>
+        <p class="pq"><b>고령 신부전에서 보존치료 대 투석 개시의 실용적 RCT</b>, 증상부담 중재 시험. 논문은 꾸준히 늘지만(1.36×) 개입 시험으로 이어지지 않습니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">07</div><div>
+        <h3>AKI 병태생리 기반 표적치료</h3>
+        <div class="ptags"><span class="ptag">동력</span><span class="ptag">근거수준</span></div>
+        <p class="pevi">성장 0.97× · RCT 1.74% (평균의 0.85×) · 저자들이 반복 지목</p>
+        <p class="pq">패혈증 AKI의 공간전사체 기반 subphenotype 규명, <b>경증·단기 AKI 후 맞춤 추적 전략의 RCT</b>. 병태생리를 표적하는 중재 개발이 미충족 수요로 반복 언급됩니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">08</div><div>
+        <h3>특수 CKD 인구에서의 신약 근거</h3>
+        <div class="ptags"><span class="ptag">인구집단</span></div>
+        <p class="pevi">SGLT2i 논문 2.37× 급증 — 그러나 소아·마른·비당뇨·ADPKD는 공백</p>
+        <p class="pq"><b>BMI 25 미만 비당뇨 CKD에서의 RCT</b>, 소아 CKD(EMPA-KIDNEY-Kids·DOUBLE-PROTECT 후속), ADPKD에서의 SGLT2 억제. 분야에서 가장 빠르게 자란 주제인데도 근거가 특정 체형·특정 병인에만 존재합니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">09</div><div>
+        <h3>보체 매개 신질환의 시험 기반</h3>
+        <div class="ptags"><span class="ptag">근거수준</span><span class="ptag">전환</span></div>
+        <p class="pevi">성장 1.64× (5위) · RCT 1.18% · 시험/논문 0.027 — 전 카테고리 최저</p>
+        <p class="pq">C3 사구체병증에서 보체억제제 두경부 비교, <b>aHUS 치료중단 전략</b>, TMA 진단 표준화. 논문은 빠르게 느는데 시험 기반이 가장 취약한 조합입니다.</p>
+      </div></div>
+
+      <div class="prow"><div class="rank">10</div><div>
+        <h3>ANCA·막성신병증의 출판 유출</h3>
+        <div class="ptags"><span class="ptag">전환</span><span class="ptag">근거수준</span></div>
+        <p class="pevi">ANCA: 등록 시험 96건 vs 신장학 저널 RCT 3편 · 막성신병증 RCT 4편</p>
+        <p class="pq">신장학 주도 시험 컨소시엄, <b>신장 특이 결과지표(신기능 회복)를 일차 종말점으로 하는 설계</b>. 시험은 있으나 신장학이 그 결과를 담지 못합니다.</p>
+      </div></div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prose">
+    <div class="shead">
+      <span class="eyebrow">추가 관찰</span>
+      <h2>세 가지 맥락</h2>
+    </div>
+    <h3>인력·정책의 급성장은 경고 신호다</h3>
+    <p>인력·교육·보건정책 논문이 5년간 1.88배(123 → 193편) 늘었습니다. 급성장 3위인데, 이는 신약이나 기술의 진보가 아니라 <b>분야가 스스로의 지속가능성을 걱정하기 시작했다</b>는 신호로 읽는 편이 타당합니다. 성장률 1위 SGLT2i와 3위 인력·정책이 나란히 놓인 구도는, 치료는 좋아지는데 그것을 전달할 사람이 부족하다는 인식의 반영일 수 있습니다.</p>
+    <h3>COVID가 비운 자리는 유전·면역이 채웠다</h3>
+    <p>감염·백신 논문은 978 → 226편으로 0.28배가 되었습니다. 2년당 약 750편의 출판 용량이 비었고, SGLT2i(+217), 유전성·낭성(+140), IgA 신병증(+130), 보체/TMA(+91)가 그 자리를 대체했습니다. 팬데믹 조정은 끝났고, 그 결과 분야의 주제 구성이 영구적으로 재편되었습니다.</p>
+    <h3>한국·아시아 관점</h3>
+    <p>Kidney Research and Clinical Practice(대한신장학회)는 5년간 613편으로 Tier B의 8%를 차지합니다. 위 우선순위 중 <b>①혈액투석 ②신장이식 ⑥완화·보존치료 ⑦AKI</b>는 전국 등록사업·건강보험 청구자료·높은 투석 및 이식 접근성이라는 한국의 데이터 자산으로 국제적 기여가 가능한 영역입니다. 특히 고령 신부전에서 보존치료 대 투석 개시는 전 세계적으로 개입 시험이 거의 없고(시험/논문 0.032), 한국의 고령화 속도를 고려하면 선점 가치가 큽니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">방법과 한계</span>
+      <h2>이 분석이 말할 수 없는 것</h2>
+    </div>
+    <ol class="notes">
+      <li><b>저널 단위 리뷰의 구조적 한계.</b> NEJM·Lancet·JAMA 등 상위 종합지에 실린 신장학 논문, 특히 대형 RCT는 코퍼스에 없습니다. “출판 유출”은 타 분야로의 이동뿐 아니라 상위 종합지로의 이동도 포함합니다.</li>
+      <li><b>카테고리 중복 태깅.</b> 한 논문이 여러 카테고리에 매칭되므로 비중 합계는 100%를 넘습니다. 비중은 “22,179편 중 해당 주제를 다룬 논문의 비율”로 읽어야 합니다.</li>
+      <li><b>키워드 분류의 오분류.</b> MeSH와 [tiab] 조합은 초록에 키워드가 없는 논문을 놓치고, 지나가듯 언급만 한 논문을 포함시킵니다.</li>
+      <li><b>PubMed 날짜 인덱싱.</b> <span class="mono">[dp]</span>는 전자·인쇄 출판일을 모두 매칭해 연도별 합계(23,531)가 중복제거 총계(22,179)보다 약 6% 큽니다. 시기 비교는 동일 방식이므로 상대 비교에는 영향이 제한적입니다.</li>
+      <li><b>RCT 비중은 근사치.</b> Tier A 8종 기준이며, AKI·CKD·DKD 3개를 제외한 나머지는 분모에 중복제거 보정계수(0.9425)를 적용했습니다.</li>
+      <li><b>ClinicalTrials.gov 동의어 확장 노이즈.</b> 무관한 시험이 섞인 복합 쿼리 3건은 신뢰불가로 명시 제외했습니다. 또한 미국 중심 등록부라 유럽·아시아·중국 등록시험이 과소 반영됩니다.</li>
+      <li><b>2026년 부분 연도.</b> P3(2025.01–2026.08)는 1.67년으로 연환산 보정했으나, 최근 논문의 색인 지연으로 P3가 다소 과소평가될 수 있습니다.</li>
+      <li><b>상관은 인과가 아니다.</b> 논문량 감소가 곧 임상적 중요도 감소를 뜻하지는 않습니다. 이 지도는 “어디가 비어 있는가”를 보여줄 뿐, “왜 비었는가”는 각 영역의 맥락으로 따로 판단해야 합니다.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>문헌 데이터는 <b>PubMed</b>(National Library of Medicine)에서, 임상시험 데이터는 <b>ClinicalTrials.gov API v2</b>에서 조회했습니다. 분석 시점 2026년 8월 20일.</p>
+    <p>대상 저널 16종 — Kidney International · Kidney International Reports · Clinical Kidney Journal · Nephrology Dialysis Transplantation · JASN · CJASN · AJKD · Nature Reviews Nephrology · Kidney360 · Journal of Nephrology · Kidney Medicine · Nephrology (Carlton) · Kidney Research and Clinical Practice · American Journal of Nephrology · Current Opinion in Nephrology and Hypertension · Seminars in Nephrology</p>
+  </div>
+</footer>
