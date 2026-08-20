@@ -1,0 +1,36 @@
+# Nephrology 16-journal corpus (Tier A+B), PubMed [dp] periods
+# groupA = Kidney Int, Kidney Int Rep, Clin Kidney J, NDT, JASN, CJASN, AJKD, Nat Rev Nephrol
+# groupB = Kidney360, J Nephrol, Kidney Med, Nephrology(Carlton), KRCP, Am J Nephrol, Curr Opin Nephrol Hypertens, Semin Nephrol
+# columns: id	category	A_2021_22	A_2023_24	A_2025_26	B_2021_22	B_2023_24	B_2025_26
+CORPUS	All articles	-	-	-	-	-	-
+C01	AKI & critical care nephrology	614	501	473	429	381	368
+C02	CKD epidemiology & progression	2281	2196	2234	1218	1191	1334
+C03	Diabetic kidney disease	548	472	569	304	285	303
+C04	Cardiorenal & hypertension	940	873	932	535	486	563
+C05	Aging, frailty & cognition	167	176	184	117	123	156
+C06	Pregnancy & reproductive health	68	71	84	50	60	61
+corpus periods: P1=8122 P2=7712 P3=7697 (total 23531; dedup total 22179)
+C07	Nephrolithiasis	93	107	86	51	61	53
+C08	IgA nephropathy	151	190	251	78	128	108
+C09	Membranous nephropathy	138	151	135	53	53	72
+C10	FSGS / MCD / nephrotic syndrome	287	235	267	105	106	153
+C11	Lupus nephritis	103	88	108	40	40	60
+C12	ANCA vasculitis & anti-GBM	146	116	128	54	70	58
+C13	Complement / C3G / TMA	173	211	246	76	87	94
+C14	Genetic & cystic kidney disease	308	330	383	127	158	192
+C15	Hemodialysis & vascular access	1010	725	518	662	561	536
+C16	Peritoneal & home dialysis	230	226	209	190	179	205
+C17	Kidney transplantation	689	537	464	335	314	289
+C18	Palliative/conservative care, PROs & equity	335	308	335	193	233	262
+C19	CKD-MBD (mineral & bone)	215	182	168	119	112	117
+C20	Anemia & iron	162	115	88	75	76	88
+C21	Electrolyte & acid-base	200	178	162	141	102	105
+C22	Nutrition, obesity & GLP-1	226	206	295	157	146	157
+C23	SGLT2i / MRA / novel therapeutics	152	212	317	71	89	123
+C24	Onconephrology	97	64	113	49	45	60
+C25	Nephrotoxicity & drug dosing	99	90	83	40	39	55
+C26	Infection & vaccination (incl. COVID)	671	213	117	307	179	109
+C27	AI & digital health	95	137	150	74	86	138
+C28	Omics & biomarkers	432	467	496	198	187	228
+C29	Basic mechanisms (fibrosis/podocyte/organoid)	451	399	470	175	171	221
+C30	Workforce, education & health policy	79	74	134	44	40	59

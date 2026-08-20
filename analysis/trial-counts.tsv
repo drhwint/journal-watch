@@ -1,0 +1,27 @@
+# ClinicalTrials.gov, INTERVENTIONAL, StartDate >= 2021-01-01, queried 2026-08-20
+# topic	n_trials	mapped_category	note
+acute kidney injury	381	C01
+chronic kidney disease	922	C02
+diabetic kidney disease/nephropathy	138	C03
+IgA nephropathy	124	C08
+membranous nephropathy	64	C09
+FSGS / nephrotic syndrome	87	C10
+lupus nephritis	141	C11
+ANCA-associated vasculitis	96	C12
+C3 glomerulopathy / aHUS	24	C13
+polycystic kidney disease	56	C14	partial(ADPKD only)
+Alport / Fabry	45	C14	partial
+hemodialysis	773	C15
+peritoneal dialysis	95	C16
+kidney transplantation	440	C17
+CKD + palliative/QoL	54	C18
+secondary hyperparathyroidism	35	C19
+anemia of CKD / renal anemia	36	C20
+hyperkalemia	50	C21
+SGLT2i/finerenone in CKD	99	C23
+AKI + cancer/chemo/ICI	16	C24	narrow
+nephrolithiasis / kidney stones	316	C07
+CKD/dialysis + AI/telehealth intervention	38	C27
+# EXCLUDED as unreliable (synonym-expansion noise): "CKD OR kidney failure AND pregnancy" (n=1664),
+# "secondary hyperparathyroidism OR vascular calcification OR renal osteodystrophy" (n=49),
+# "hyperkalemia OR metabolic acidosis" (n=229)
